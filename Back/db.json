@@ -1,0 +1,16 @@
+{
+  "alunos": [
+    {
+      "id_aluno": 1,
+      "nome": "Gabriel",
+      "cpf": "10545059933",
+      "senha": "teste",
+      "nascimento": "",
+      "sexo": "M",
+      "endereco": "e",
+      "telefone": "4",
+      "id_plano": 1,
+      "id_status": 2
+    }
+  ]
+}
