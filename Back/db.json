@@ -12,5 +12,52 @@
       "id_plano": 1,
       "id_status": 2
     }
+  ],
+  "professores": [
+    {
+      "id_professor": 1,
+      "nome": "João Silva",
+      "cpf": "123.456.789-01",
+      "telefone": "9999-9999",
+      "sexo": "M",
+      "nascimento": "1990-01-01",
+      "cref": 123456
+    },
+    {
+      "id_professor": 2,
+      "nome": "Ana Costa",
+      "cpf": "234.567.890-12",
+      "telefone": "9999-9998",
+      "sexo": "F",
+      "nascimento": "1985-02-02",
+      "cref": 234567
+    },
+    {
+      "id_professor": 3,
+      "nome": "Carlos Pereira",
+      "cpf": "345.678.901-23",
+      "telefone": "9999-9997",
+      "sexo": "M",
+      "nascimento": "1980-03-03",
+      "cref": 345678
+    },
+    {
+      "id_professor": 4,
+      "nome": "Beatriz Oliveira",
+      "cpf": "456.789.012-34",
+      "telefone": "9999-9996",
+      "sexo": "F",
+      "nascimento": "1995-04-04",
+      "cref": 456789
+    },
+    {
+      "id_professor": 5,
+      "nome": "Eduardo Lima",
+      "cpf": "567.890.123-45",
+      "telefone": "9999-9995",
+      "sexo": "M",
+      "nascimento": "1970-05-05",
+      "cref": 567890
+    }
   ]
 }
