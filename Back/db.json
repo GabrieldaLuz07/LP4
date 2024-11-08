@@ -59,5 +59,52 @@
       "nascimento": "1970-05-05",
       "cref": 567890
     }
+  ],
+  "modalidades": [
+    {
+      "id_modalidade": 1,
+      "nome": "Musculação",
+      "descricao": "Treinamento com pesos livres e máquinas",
+      "hora_inicio": "08:00",
+      "hora_fim": "22:00",
+      "capacidademaxima": 50,
+      "diassemana": "Segunda a Sábado"
+    },
+    {
+      "id_modalidade": 2,
+      "nome": "Yoga",
+      "descricao": "Aulas de Yoga",
+      "hora_inicio": "06:00",
+      "hora_fim": "20:00",
+      "capacidademaxima": 30,
+      "diassemana": "Segunda a Sexta"
+    },
+    {
+      "id_modalidade": 3,
+      "nome": "Pilates",
+      "descricao": "Aulas de Pilates",
+      "hora_inicio": "07:00",
+      "hora_fim": "21:00",
+      "capacidademaxima": 25,
+      "diassemana": "Segunda a Sábado"
+    },
+    {
+      "id_modalidade": 4,
+      "nome": "Spinning",
+      "descricao": "Aulas de Spinning",
+      "hora_inicio": "08:00",
+      "hora_fim": "22:00",
+      "capacidademaxima": 20,
+      "diassemana": "Terça e Quinta"
+    },
+    {
+      "id_modalidade": 5,
+      "nome": "Crossfit",
+      "descricao": "Treinamento Crossfit",
+      "hora_inicio": "06:00",
+      "hora_fim": "22:00",
+      "capacidademaxima": 15,
+      "diassemana": "Segunda a Domingo"
+    }
   ]
 }
