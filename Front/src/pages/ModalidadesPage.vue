@@ -16,9 +16,7 @@
               width: 100%;
             "
           >
-            <label style="color: black; font-size: 18px"
-              >Nome da Modalidade</label
-            >
+            <label style="color: black; font-size: 18px">Modalidade</label>
             <q-input
               v-model="search"
               debounce="300"
@@ -28,16 +26,6 @@
                 border: 2px solid var(--q-primary);
                 border-radius: 10px;
                 background-color: white;
-                margin-left: 5px;
-              "
-            />
-
-            <q-btn
-              icon="search"
-              style="
-                background-color: white;
-                width: 12px;
-                border-radius: 10px;
                 margin-left: 5px;
               "
             />
@@ -60,7 +48,7 @@
             "
             :rows="modalidadesFiltradas"
             :columns="columns"
-            row-key="id_modalidade"
+            row-key="id"
             :rows-per-page-options="[5, 10, 20]"
             class="custom-table"
           >
@@ -91,113 +79,43 @@
                   <q-icon
                     name="delete"
                     class="q-mr-sm action-icon"
-                    @click="deletarModalidade(props.row.id_modalidade)"
+                    @click="deletarModalidade(props.row.id)"
                   />
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  {{ props.row.id_modalidade }}
+                  {{ props.row.id }}
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingModalidade &&
-                      editingModalidade.id_modalidade ===
-                        props.row.id_modalidade
-                    "
-                    v-model="editingModalidade.nome"
-                    dense
-                  />
-                  <span v-else>{{ props.row.nome }}</span>
+                  <span>{{ props.row.nome }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingModalidade &&
-                      editingModalidade.id_modalidade ===
-                        props.row.id_modalidade
-                    "
-                    v-model="editingModalidade.descricao"
-                    dense
-                  />
-                  <span v-else>{{ props.row.descricao }}</span>
+                  <span>{{ props.row.descricao }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingModalidade &&
-                      editingModalidade.id_modalidade ===
-                        props.row.id_modalidade
-                    "
-                    v-model="editingModalidade.hora_inicio"
-                    dense
-                  />
-                  <span v-else>{{ props.row.hora_inicio }}</span>
+                  <span>{{ props.row.hora_inicio }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingModalidade &&
-                      editingModalidade.id_modalidade ===
-                        props.row.id_modalidade
-                    "
-                    v-model="editingModalidade.hora_fim"
-                    dense
-                  />
-                  <span v-else>{{ props.row.hora_fim }}</span>
+                  <span>{{ props.row.hora_fim }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingModalidade &&
-                      editingModalidade.id_modalidade ===
-                        props.row.id_modalidade
-                    "
-                    v-model="editingModalidade.capacidademaxima"
-                    dense
-                  />
-                  <span v-else>{{ props.row.capacidademaxima }}</span>
+                  <span>{{ props.row.capacidademaxima }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingModalidade &&
-                      editingModalidade.id_modalidade ===
-                        props.row.id_modalidade
-                    "
-                    v-model="editingModalidade.diassemana"
-                    dense
-                  />
-                  <span v-else>{{ props.row.diassemana }}</span>
+                  <span>{{ props.row.diassemana }}</span>
                 </q-td>
 
-                <q-td
-                  v-if="
-                    editingModalidade &&
-                    editingModalidade.id_modalidade === props.row.id_modalidade
-                  "
-                >
-                  <q-btn
-                    label="Salvar"
-                    @click="salvarEdicao(props.row.id_modalidade)"
-                    color="green"
-                  />
-                </q-td>
               </q-tr>
             </template>
           </q-table>
 
-          <div
-            v-else-if="
-              modalidadesFiltradas && modalidadesFiltradas.length === 0
-            "
-          >
+          <div v-else-if="modalidadesFiltradas && modalidadesFiltradas.length === 0">
             Nenhuma modalidade disponível.
           </div>
         </q-page>
@@ -214,7 +132,6 @@ import { useModalidadesStore } from "src/stores/modalidadesStore";
 const router = useRouter();
 const store = useModalidadesStore();
 const search = ref("");
-const editingModalidade = ref(null);
 
 onMounted(() => {
   store.fetchModalidadesData();
@@ -222,33 +139,13 @@ onMounted(() => {
 
 const columns = [
   { name: "btns", label: "Ações" },
-  {
-    name: "id_modalidade",
-    label: "ID Modalidade",
-    align: "left",
-    field: "id_modalidade",
-  },
+  { name: "id", label: "ID Modalidade", align: "left", field: "id" },
   { name: "nome", label: "Nome", align: "left", field: "nome" },
   { name: "descricao", label: "Descrição", align: "left", field: "descricao" },
-  {
-    name: "hora_inicio",
-    label: "Hora Início",
-    align: "left",
-    field: "hora_inicio",
-  },
+  { name: "hora_inicio", label: "Hora Início", align: "left", field: "hora_inicio" },
   { name: "hora_fim", label: "Hora Fim", align: "left", field: "hora_fim" },
-  {
-    name: "capacidademaxima",
-    label: "Capacidade Máxima",
-    align: "left",
-    field: "capacidademaxima",
-  },
-  {
-    name: "diassemana",
-    label: "Dias da Semana",
-    align: "left",
-    field: "diassemana",
-  },
+  { name: "capacidademaxima", label: "Capacidade Máxima", align: "left", field: "capacidademaxima" },
+  { name: "diassemana", label: "Dias da Semana", align: "left", field: "diassemana" },
 ];
 
 const loading = computed(() => store.loading);
@@ -266,18 +163,8 @@ const modalidadesFiltradas = computed(() =>
 function editarModalidade(modalidade) {
   router.push({
     name: "registerModalidade",
-    params: { id: modalidade.id_modalidade },
+    params: { id: modalidade.id },
   });
-}
-
-async function salvarEdicao(modalidadeId) {
-  try {
-    await store.updateModalidade(modalidadeId, editingModalidade.value);
-    editingModalidade.value = null;
-    store.fetchModalidadesData();
-  } catch (err) {
-    console.error("Erro ao atualizar modalidade:", err);
-  }
 }
 
 function adicionarModalidade() {
@@ -287,11 +174,9 @@ function adicionarModalidade() {
 async function deletarModalidade(modalidadeId) {
   try {
     await store.deleteModalidade(modalidadeId);
-    store.fetchModalidadesData();
+    await store.fetchModalidadesData();
   } catch (err) {
     console.error("Erro ao deletar modalidade:", err);
   }
 }
 </script>
-
-<style></style>

@@ -26,7 +26,7 @@ export const useAlunosStore = defineStore("alunos", {
       this.loading = true;
       try {
         const data = await service.getAlunosData();
-        return data.alunos.find((aluno) => aluno.id_aluno == id);
+        return data.alunos.find((aluno) => aluno.id == id);
       } catch (err) {
         this.error = "Erro ao carregar dados do aluno";
         return null;
@@ -39,7 +39,7 @@ export const useAlunosStore = defineStore("alunos", {
       this.loading = true;
       try {
         await service.updateProfessor(id, updatedData);
-        const index = this.alunos.findIndex((aluno) => aluno.id_aluno === id);
+        const index = this.alunos.findIndex((aluno) => aluno.id === id);
         if (index !== -1) {
           this.alunos[index] = {
             ...this.alunos[index],

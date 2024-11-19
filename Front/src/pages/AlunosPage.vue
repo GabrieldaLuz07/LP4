@@ -18,7 +18,6 @@
           >
             <label style="color: black; font-size: 18px">Nome</label>
             <q-input
-              color="primary"
               v-model="search"
               debounce="300"
               class="custom-input"
@@ -27,16 +26,6 @@
                 border: 2px solid var(--q-primary);
                 border-radius: 10px;
                 background-color: white;
-                margin-left: 5px;
-              "
-            />
-
-            <q-btn
-              icon="search"
-              style="
-                background-color: white;
-                width: 12px;
-                border-radius: 10px;
                 margin-left: 5px;
               "
             />
@@ -59,7 +48,7 @@
             "
             :rows="alunosFiltrados"
             :columns="columns"
-            row-key="id_aluno"
+            row-key="id"
             :rows-per-page-options="[5, 10, 20]"
             class="custom-table"
           >
@@ -85,102 +74,43 @@
                   <q-icon
                     name="edit"
                     class="q-mr-sm action-icon"
-                    @click="toggleEdit(props.row)"
+                    @click="editarAluno(props.row)"
                   />
                   <q-icon
                     name="delete"
                     class="q-mr-sm action-icon"
-                    @click="deletarAluno(props.row.id_aluno)"
+                    @click="deletarAluno(props.row.id)"
                   />
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  {{ props.row.id_aluno }}
+                  {{ props.row.id }}
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingAluno &&
-                      editingAluno.id_aluno === props.row.id_aluno
-                    "
-                    v-model="editingAluno.nome"
-                    dense
-                  />
-                  <span v-else>{{ props.row.nome }}</span>
+                  <span>{{ props.row.nome }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingAluno &&
-                      editingAluno.id_aluno === props.row.id_aluno
-                    "
-                    v-model="editingAluno.cpf"
-                    dense
-                  />
-                  <span v-else>{{ props.row.cpf }}</span>
+                  <span>{{ props.row.cpf }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingAluno &&
-                      editingAluno.id_aluno === props.row.id_aluno
-                    "
-                    v-model="editingAluno.telefone"
-                    dense
-                  />
-                  <span v-else>{{ props.row.telefone }}</span>
+                  <span>{{ props.row.telefone }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingAluno &&
-                      editingAluno.id_aluno === props.row.id_aluno
-                    "
-                    v-model="editingAluno.sexo"
-                    dense
-                  />
-                  <span v-else>{{ props.row.sexo }}</span>
+                  <span>{{ props.row.sexo }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingAluno &&
-                      editingAluno.id_aluno === props.row.id_aluno
-                    "
-                    v-model="editingAluno.nascimento"
-                    dense
-                  />
-                  <span v-else>{{ props.row.nascimento }}</span>
+                  <span>{{ props.row.nascimento }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingAluno &&
-                      editingAluno.id_aluno === props.row.id_aluno
-                    "
-                    v-model="editingAluno.cref"
-                    dense
-                  />
-                  <span v-else>{{ props.row.cref }}</span>
+                  <span>{{ props.row.modalidade }}</span>
                 </q-td>
 
-                <q-td
-                  v-if="
-                    editingAluno && editingAluno.id_aluno === props.row.id_aluno
-                  "
-                >
-                  <q-btn
-                    label="Salvar"
-                    @click="salvarEdicao(props.row.id_aluno)"
-                    color="green"
-                  />
-                </q-td>
               </q-tr>
             </template>
           </q-table>
@@ -197,38 +127,26 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useDashboardStore } from "src/stores/dashboardStore";
+import { useAlunoStore } from "src/stores/alunosStore";
 
 const router = useRouter();
-const store = useDashboardStore();
+const store = useAlunoStore();
 const search = ref("");
-const editingAluno = ref(null);
 
 onMounted(() => {
-  store.fetchDashboardData();
+  store.fetchAlunosData();
 });
 
 const columns = [
-  {
-    name: "btns",
-  },
-  {
-    name: "id_aluno",
-    label: "ID Aluno",
-    align: "left",
-    field: "id_aluno",
-  },
+  { name: "btns" },
+  { name: "id", label: "ID Aluno", align: "left", field: "id" },
   { name: "nome", label: "Nome", align: "left", field: "nome" },
   { name: "cpf", label: "CPF", align: "left", field: "cpf" },
-  { name: "telefone", label: "Telefone", align: "left", field: "telefone" },
   { name: "sexo", label: "Sexo", align: "left", field: "sexo" },
-  {
-    name: "nascimento",
-    label: "Nascimento",
-    align: "left",
-    field: "nascimento",
-  },
-  { name: "cref", label: "CREF", align: "left", field: "cref" },
+  { name: "nascimento", label: "Nascimento", align: "left", field: "nascimento" },
+  { name: "email", label: "E-mail", align: "left", field: "email" },
+  { name: "telefone", label: "Telefone", align: "left", field: "telefone" },
+  { name: "modalidade", label: "Modalidade", align: "left", field: "modalidade" }
 ];
 
 const loading = computed(() => store.loading);
@@ -243,22 +161,11 @@ const alunosFiltrados = computed(() =>
     : []
 );
 
-function toggleEdit(alunos) {
-  if (editingAlunos.value && editingAlunos.value.id === alunos.id) {
-    editingAlunos.value = null;
-  } else {
-    editingAlunos.value = { ...alunos };
-  }
-}
-
-async function salvarEdicao(alunosId) {
-  try {
-    await store.updatealunos(alunosId, editingAlunos.value);
-    editingAlunos.value = null;
-    store.fetchalunosData();
-  } catch (err) {
-    console.error("Erro ao atualizar o aluno:", err);
-  }
+function editarAluno(aluno) {
+  router.push({
+    name: "registerAluno",
+    params: { id: aluno.id },
+  });
 }
 
 function adicionarAluno() {
@@ -268,7 +175,7 @@ function adicionarAluno() {
 async function deletarAluno(alunosId) {
   try {
     await store.deletarAluno(alunosId);
-    store.fetchAlunosData();
+    await store.fetchAlunosData();
   } catch (err) {
     console.error("Erro ao deletar aluno:", err);
   }

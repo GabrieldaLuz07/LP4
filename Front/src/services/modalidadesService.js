@@ -21,7 +21,15 @@ export default {
     return response.data;
   },
 
-  async updateModalidade(id, data) {
-    return await api.put(`/modalidades/${id}`, data);
+  async addModalidade(data) {
+    return await api.post("/modalidades", data);
   },
+
+  async updateModalidade(id, data) {
+    return await api.put("/modalidades/" + id, data);
+  },
+
+  async deleteModalidade(id) {
+    return await api.delete("/modalidades/" + id);
+  }
 };

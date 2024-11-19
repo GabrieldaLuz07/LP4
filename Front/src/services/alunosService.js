@@ -19,7 +19,15 @@ export default {
     return response.data;
   },
 
-  async updateAluno(id, data) {
-    return await api.put(`/alunos/${id}`, data);
+  async addAluno(data) {
+    return await api.post("/alunos", data);
   },
+
+  async updateAluno(id, data) {
+    return await api.put("/alunos/" + id, data);
+  },
+
+  async deleteAluno(id) {
+    return await api.delete("/alunos/" + id);
+  }
 };

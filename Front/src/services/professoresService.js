@@ -21,7 +21,15 @@ export default {
     return response.data;
   },
 
-  async updateProfessor(id, data) {
-    return await api.put(`/professores/${id}`, data);
+  async addProfessor(data) {
+    return await api.post("/professores", data);
   },
+
+  async updateProfessor(id, data) {
+    return await api.put("/professores/" + id, data);
+  },
+
+  async deleteProfessor(id) {
+    return await api.delete("/professores/" + id);
+  }
 };

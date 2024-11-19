@@ -26,7 +26,7 @@ export const useModalidadesStore = defineStore("modalidades", {
       this.loading = true;
       try {
         const data = await service.getModalidadesData();
-        return data.modalidades.find((modal) => modal.id_modalidade == id);
+        return data.modalidades.find((modal) => modal.id == id);
       } catch (err) {
         this.error = "Erro ao carregar dados da modalidade";
         return null;
@@ -40,7 +40,7 @@ export const useModalidadesStore = defineStore("modalidades", {
       try {
         await service.updateProfessor(id, updatedData);
         const index = this.modalidades.findIndex(
-          (modal) => modal.id_modalidade === id
+          (modal) => modal.id === id
         );
         if (index !== -1) {
           this.modalidades[index] = {

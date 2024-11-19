@@ -31,16 +31,6 @@
             />
 
             <q-btn
-              icon="search"
-              style="
-                background-color: white;
-                width: 12px;
-                border-radius: 10px;
-                margin-left: 5px;
-              "
-            />
-
-            <q-btn
               class="custom-button"
               color="primary"
               icon="add"
@@ -58,7 +48,7 @@
             "
             :rows="professoresFiltrados"
             :columns="columns"
-            row-key="id_professor"
+            row-key="id"
             :rows-per-page-options="[5, 10, 20]"
             class="custom-table"
           >
@@ -89,107 +79,43 @@
                   <q-icon
                     name="delete"
                     class="q-mr-sm action-icon"
-                    @click="deletarProfessor(props.row.id_professor)"
+                    @click="deletarProfessor(props.row.id)"
                   />
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  {{ props.row.id_professor }}
+                  {{ props.row.id }}
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingProfessor &&
-                      editingProfessor.id_professor === props.row.id_professor
-                    "
-                    v-model="editingProfessor.nome"
-                    dense
-                  />
-                  <span v-else>{{ props.row.nome }}</span>
+                  <span>{{ props.row.nome }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingProfessor &&
-                      editingProfessor.id_professor === props.row.id_professor
-                    "
-                    v-model="editingProfessor.cpf"
-                    dense
-                  />
-                  <span v-else>{{ props.row.cpf }}</span>
+                  <span>{{ props.row.cpf }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingProfessor &&
-                      editingProfessor.id_professor === props.row.id_professor
-                    "
-                    v-model="editingProfessor.telefone"
-                    dense
-                  />
-                  <span v-else>{{ props.row.telefone }}</span>
+                  <span>{{ props.row.telefone }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingProfessor &&
-                      editingProfessor.id_professor === props.row.id_professor
-                    "
-                    v-model="editingProfessor.sexo"
-                    dense
-                  />
-                  <span v-else>{{ props.row.sexo }}</span>
+                  <span>{{ props.row.sexo }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingProfessor &&
-                      editingProfessor.id_professor === props.row.id_professor
-                    "
-                    v-model="editingProfessor.nascimento"
-                    dense
-                  />
-                  <span v-else>{{ props.row.nascimento }}</span>
+                  <span>{{ props.row.nascimento }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <q-input
-                    v-if="
-                      editingProfessor &&
-                      editingProfessor.id_professor === props.row.id_professor
-                    "
-                    v-model="editingProfessor.cref"
-                    dense
-                  />
-                  <span v-else>{{ props.row.cref }}</span>
+                  <span>{{ props.row.cref }}</span>
                 </q-td>
 
-                <q-td
-                  v-if="
-                    editingProfessor &&
-                    editingProfessor.id_professor === props.row.id_professor
-                  "
-                >
-                  <q-btn
-                    label="Salvar"
-                    @click="salvarEdicao(props.row.id_professor)"
-                    color="green"
-                  />
-                </q-td>
               </q-tr>
             </template>
           </q-table>
 
-          <div
-            v-else-if="
-              professoresFiltrados && professoresFiltrados.length === 0
-            "
-          >
+          <div v-else-if="professoresFiltrados && professoresFiltrados.length === 0">
             Nenhum professores disponível.
           </div>
         </q-page>
@@ -201,37 +127,24 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useDashboardStore } from "src/stores/dashboardStore";
+import { useProfessoresStore } from "src/stores/professoresStore";
 
 const router = useRouter();
-const store = useDashboardStore();
+const store = useProfessoresStore();
 const search = ref("");
-const editingProfessor = ref(null);
 
 onMounted(() => {
-  store.fetchDashboardData();
+  store.fetchProfessoresData();
 });
 
 const columns = [
-  {
-    name: "btns",
-  },
-  {
-    name: "id_professor",
-    label: "ID Professor",
-    align: "left",
-    field: "id_professor",
-  },
+  { name: "btns" },
+  { name: "id", label: "ID Professor", align: "left", field: "id" },
   { name: "nome", label: "Nome", align: "left", field: "nome" },
   { name: "cpf", label: "CPF", align: "left", field: "cpf" },
   { name: "telefone", label: "Telefone", align: "left", field: "telefone" },
   { name: "sexo", label: "Sexo", align: "left", field: "sexo" },
-  {
-    name: "nascimento",
-    label: "Nascimento",
-    align: "left",
-    field: "nascimento",
-  },
+  { name: "nascimento", label: "Nascimento", align: "left", field: "nascimento" },
   { name: "cref", label: "CREF", align: "left", field: "cref" },
 ];
 
@@ -250,32 +163,20 @@ const professoresFiltrados = computed(() =>
 function editarProfessor(professor) {
   router.push({
     name: "registerProfessor",
-    params: { id: professor.id_professor },
+    params: { id: professor.id },
   });
-}
-
-async function salvarEdicao(professoresId) {
-  try {
-    await store.updateprofessores(professoresId, editingProfessor.value);
-    editingProfessor.value = null;
-    store.fetchprofessoresData();
-  } catch (err) {
-    console.error("Erro ao atualizar professores:", err);
-  }
 }
 
 function adicionarProfessor() {
   router.push("/adicionarProfessor");
 }
 
-async function deletarProfessores(professoresId) {
+async function deletarProfessor(professoresId) {
   try {
-    await store.deleteProfessores(professoresId);
-    store.fetchprofessoresData();
+    await store.deleteProfessor(professoresId);
+    await store.fetchProfessoresData();
   } catch (err) {
     console.error("Erro ao deletar professores:", err);
   }
 }
 </script>
-
-<style></style>

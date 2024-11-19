@@ -109,19 +109,31 @@ watch(
 
 async function handleSave() {
   try {
-    await store.updateModalidade(modalidadeId.value, {
-      nome: nome.value,
-      descricao: descricao.value,
-      hora_inicio: horaInicio.value,
-      hora_fim: horaFim.value,
-      capacidademaxima: capacidadeMaxima.value,
-      diassemana: diasSemana.value,
-    });
+    if (modalidadeId.value != null) {
+      await store.updateModalidade(modalidadeId.value, {
+        nome: nome.value,
+        descricao: descricao.value,
+        hora_inicio: horaInicio.value,
+        hora_fim: horaFim.value,
+        capacidademaxima: capacidadeMaxima.value,
+        diassemana: diasSemana.value,
+      });
+    } else {
+      await store.addModalidade({
+        nome: nome.value,
+        descricao: descricao.value,
+        hora_inicio: horaInicio.value,
+        hora_fim: horaFim.value,
+        capacidademaxima: capacidadeMaxima.value,
+        diassemana: diasSemana.value,
+      });
+    }
     router.push("/modalidades");
   } catch (error) {
     console.error("Erro ao salvar alterações:", error);
   }
 }
+
 </script>
 
 <style scoped>

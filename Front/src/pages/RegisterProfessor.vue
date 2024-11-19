@@ -106,19 +106,31 @@ watch(
 
 async function handleSave() {
   try {
-    await store.updateProfessor(professorId.value, {
-      nome: nome.value,
-      cpf: cpf.value,
-      telefone: telefone.value,
-      sexo: sexo.value,
-      nascimento: nascimento.value,
-      cref: cref.value,
-    });
+    if (professorId.value != null) {
+      await store.updateProfessor(professorId.value, {
+        nome: nome.value,
+        cpf: cpf.value,
+        telefone: telefone.value,
+        sexo: sexo.value,
+        nascimento: nascimento.value,
+        cref: cref.value,
+      });
+    } else {
+      await store.addProfessor({
+        nome: nome.value,
+        cpf: cpf.value,
+        telefone: telefone.value,
+        sexo: sexo.value,
+        nascimento: nascimento.value,
+        cref: cref.value,
+      });
+    }
     router.push("/professores");
   } catch (error) {
     console.error("Erro ao salvar alterações:", error);
   }
 }
+
 </script>
 
 <style scoped>
