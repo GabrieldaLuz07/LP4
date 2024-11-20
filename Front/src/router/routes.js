@@ -1,6 +1,21 @@
 const routes = [
+  /***************************LOGIN***************************/
   {
     path: "/",
+    component: () => import("layouts/LayoutLogin.vue"),
+    children: [
+      {
+        path: "",
+        name: "login",
+        component: () => import("pages/LoginPage.vue"),
+      },
+    ],
+  },
+  /**************************************************************/
+
+  /***************************PRINCIPAL***************************/
+  {
+    path: "/app",
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
@@ -8,62 +23,77 @@ const routes = [
         name: "dashboard",
         component: () => import("pages/DashBoardPage.vue"),
       },
+
+      /***************************ALUNOS***************************/
       {
         path: "/alunos",
-        name: "aluno",
-        component: () => import("pages/AlunosPage.vue"),
+        name: "alunos",
+        component: () => import("src/pages/Alunos/AlunosPage.vue"),
       },
       {
         path: "/adicionarAluno",
-        component: () => import("pages/RegisterAluno.vue"),
+        component: () => import("src/pages/Alunos/RegisterAluno.vue"),
       },
       {
         path: "/editarAluno/:id",
-        component: () => import("pages/RegisterAluno.vue"),
+        component: () => import("src/pages/Alunos/RegisterAluno.vue"),
         name: "registerAluno",
       },
+      /*****************************************************************/
+
+      /***************************PROFESSORES***************************/
       {
         path: "/professores",
         name: "professores",
-        component: () => import("pages/ProfessoresPage.vue"),
+        component: () => import("src/pages/Professores/ProfessoresPage.vue"),
       },
       {
         path: "/adicionarProfessor",
-        component: () => import("pages/RegisterProfessor.vue"),
+        component: () => import("src/pages/Professores/RegisterProfessor.vue"),
       },
       {
         path: "/editarProfessor/:id",
-        component: () => import("pages/RegisterProfessor.vue"),
+        component: () => import("src/pages/Professores/RegisterProfessor.vue"),
         name: "registerProfessor",
       },
+      /*****************************************************************/
+
+      /***************************MODALIDADES***************************/
       {
         path: "/modalidades",
         name: "modalidades",
-        component: () => import("pages/ModalidadesPage.vue"),
+        component: () => import("src/pages/Modalidades/ModalidadesPage.vue"),
       },
       {
         path: "/adicionarModalidade",
-        component: () => import("pages/RegisterModalidade.vue"),
+        component: () => import("src/pages/Modalidades/RegisterModalidade.vue"),
       },
       {
         path: "/editarModalidade/:id",
-        component: () => import("pages/RegisterModalidade.vue"),
+        component: () => import("src/pages/Modalidades/RegisterModalidade.vue"),
         name: "registerModalidade",
       },
-    ],
-  },
+      /*****************************************************************/
 
-  {
-    path: "/login",
-    component: () => import("layouts/LayoutLogin.vue"),
-    children: [
+      /***************************PLANOS***************************/
       {
-        path: "/login",
-        name: "login",
-        component: () => import("pages/LoginPage.vue"),
+        path: "/planos",
+        name: "planos",
+        component: () => import("src/pages/Planos/PlanosPage.vue"),
       },
+      {
+        path: "/adicionarPlano",
+        component: () => import("src/pages/Planos/RegisterPlano.vue"),
+      },
+      {
+        path: "/adicionarPlano/:id",
+        component: () => import("src/pages/Planos/RegisterPlano.vue"),
+        name: "registerPlano",
+      },
+      /*****************************************************************/
     ],
   },
+  /***********************************************************/
 
   {
     path: "/:catchAll(.*)*",

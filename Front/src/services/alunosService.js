@@ -14,11 +14,6 @@ export default {
     }
   },
 
-  async getAlunoById(id) {
-    const response = await api.get("/alunos");
-    return response.data;
-  },
-
   async addAluno(data) {
     return await api.post("/alunos", data);
   },

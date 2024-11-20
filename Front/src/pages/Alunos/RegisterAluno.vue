@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form @submit.prevent="handleSave">
+        <q-form @submit.prevent="salvar">
           <q-input
             v-model="nome"
             filled
@@ -59,12 +59,16 @@
             prepend-icon="lock"
             class="q-mb-md"
           />
-          <q-input
-            v-model="modalidade"
+          <q-select
+            v-model="planoId"
+            :options="planosOptions"
             filled
-            label="Modalidade"
-            prepend-icon="fitness_center"
+            label="Plano"
+            option-value="nome"
+            option-label="nome"
+            prepend-icon="layers"
             class="q-mb-md"
+            emit-value
           />
 
           <q-btn
@@ -72,7 +76,7 @@
             type="button"
             color="primary"
             class="full-width q-mb-sm"
-            @click="handleSave"
+            @click="salvar"
           />
         </q-form>
       </q-card-section>
@@ -81,13 +85,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useAlunosStore } from "src/stores/alunosStore";
+import { usePlanosStore } from "src/stores/planosStore";
 
 const route = useRoute();
 const router = useRouter();
 const store = useAlunosStore();
+const planosStore = usePlanosStore();
 
 const nome = ref("");
 const cpf = ref("");
@@ -96,13 +102,26 @@ const nascimento = ref("");
 const telefone = ref("");
 const email = ref("");
 const senha = ref("");
-const modalidade = ref("");
+const planoId = ref(null);
+const planosOptions = ref([]);
 
 const sexoOptions = [
   { label: "Masculino", value: "Masculino" },
   { label: "Feminino", value: "Feminino" },
   { label: "Outro", value: "Outro" },
 ];
+
+async function carregarPlanos() {
+  try {
+    const op = await planosStore.getPlanos();
+    planosOptions.value = op.map((mod) => ({
+      id: mod.id,
+      nome: mod.modalidade + " - " + mod.periodo,
+    }));
+  } catch (error) {
+    console.error("Erro ao carregar planos:", error);
+  }
+}
 
 const alunoId = ref(route.params.id);
 
@@ -117,11 +136,14 @@ async function carregarDadosAluno() {
     telefone.value = aluno.telefone;
     email.value = aluno.email;
     senha.value = aluno.senha;
-    modalidade.value = aluno.modalidade;
+    planoId.value = aluno.plano;
   }
 }
 
-onMounted(carregarDadosAluno);
+onMounted(async () => {
+  await carregarPlanos();
+  await carregarDadosAluno();
+});
 
 watch(
   () => route.params.id,
@@ -131,29 +153,29 @@ watch(
   }
 );
 
-async function handleSave() {
+async function salvar() {
   try {
     if (alunoId.value != null) {
       await store.updateAluno(alunoId.value, {
         nome: nome.value,
         cpf: cpf.value,
-        sexo: sexo.value,
+        sexo: sexo.value.value != null ? sexo.value.value : sexo.value,
         nascimento: nascimento.value,
         telefone: telefone.value,
         email: email.value,
         senha: senha.value,
-        modalidade: modalidade.value,
+        plano: planoId.value,
     });
     } else {
       await store.addAluno({
         nome: nome.value,
         cpf: cpf.value,
-        sexo: sexo.value,
+        sexo: sexo.value.value,
         nascimento: nascimento.value,
         telefone: telefone.value,
         email: email.value,
         senha: senha.value,
-        modalidade: modalidade.value,
+        plano: planoId.value,
       });
     }
     router.push("/alunos");

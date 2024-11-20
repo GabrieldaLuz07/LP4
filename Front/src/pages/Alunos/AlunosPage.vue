@@ -34,19 +34,19 @@
               class="custom-button"
               color="primary"
               icon="add"
-              @click="adicionarProfessor"
+              @click="adicionarAluno"
               style="position: absolute; right: 0; width: 35px"
             />
           </div>
 
           <q-table
             v-if="
-              professoresFiltrados &&
-              professoresFiltrados.length > 0 &&
+              alunosFiltrados &&
+              alunosFiltrados.length > 0 &&
               !loading &&
               !error
             "
-            :rows="professoresFiltrados"
+            :rows="alunosFiltrados"
             :columns="columns"
             row-key="id"
             :rows-per-page-options="[5, 10, 20]"
@@ -74,12 +74,12 @@
                   <q-icon
                     name="edit"
                     class="q-mr-sm action-icon"
-                    @click="editarProfessor(props.row)"
+                    @click="editarAluno(props.row)"
                   />
                   <q-icon
                     name="delete"
                     class="q-mr-sm action-icon"
-                    @click="deletarProfessor(props.row.id)"
+                    @click="deletarAluno(props.row.id)"
                   />
                 </q-td>
 
@@ -96,10 +96,6 @@
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.telefone }}</span>
-                </q-td>
-
-                <q-td class="vertical-line body-cell">
                   <span>{{ props.row.sexo }}</span>
                 </q-td>
 
@@ -108,15 +104,23 @@
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.cref }}</span>
+                  <span>{{ props.row.telefone }}</span>
+                </q-td>
+
+                <q-td class="vertical-line body-cell">
+                  <span>{{ props.row.email }}</span>
+                </q-td>
+
+                <q-td class="vertical-line body-cell">
+                  <span>{{ props.row.plano }}</span>
                 </q-td>
 
               </q-tr>
             </template>
           </q-table>
 
-          <div v-else-if="professoresFiltrados && professoresFiltrados.length === 0">
-            Nenhum professores disponível.
+          <div v-else-if="alunosFiltrados && alunosFiltrados.length === 0">
+            Nenhum aluno disponível.
           </div>
         </q-page>
       </q-page-container>
@@ -127,56 +131,57 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useProfessoresStore } from "src/stores/professoresStore";
+import { useAlunosStore } from "src/stores/alunosStore";
 
 const router = useRouter();
-const store = useProfessoresStore();
+const store = useAlunosStore();
 const search = ref("");
 
 onMounted(() => {
-  store.fetchProfessoresData();
+  store.fetchAlunosData();
 });
 
 const columns = [
   { name: "btns" },
-  { name: "id", label: "ID Professor", align: "left", field: "id" },
+  { name: "id", label: "ID Aluno", align: "left", field: "id" },
   { name: "nome", label: "Nome", align: "left", field: "nome" },
   { name: "cpf", label: "CPF", align: "left", field: "cpf" },
-  { name: "telefone", label: "Telefone", align: "left", field: "telefone" },
   { name: "sexo", label: "Sexo", align: "left", field: "sexo" },
   { name: "nascimento", label: "Nascimento", align: "left", field: "nascimento" },
-  { name: "cref", label: "CREF", align: "left", field: "cref" },
+  { name: "telefone", label: "Telefone", align: "left", field: "telefone" },
+  { name: "email", label: "E-mail", align: "left", field: "email" },
+  { name: "plano", label: "Plano", align: "left", field: "plano" }
 ];
 
 const loading = computed(() => store.loading);
 const error = computed(() => store.error);
-const professores = computed(() => store.professores);
+const alunos = computed(() => store.alunos);
 
-const professoresFiltrados = computed(() =>
-  professores.value
-    ? professores.value.filter((professores) =>
-        professores.nome.toLowerCase().includes(search.value.toLowerCase())
+const alunosFiltrados = computed(() =>
+  alunos.value
+    ? alunos.value.filter((alunos) =>
+        alunos.nome.toLowerCase().includes(search.value.toLowerCase())
       )
     : []
 );
 
-function editarProfessor(professor) {
+function editarAluno(aluno) {
   router.push({
-    name: "registerProfessor",
-    params: { id: professor.id },
+    name: "registerAluno",
+    params: { id: aluno.id },
   });
 }
 
-function adicionarProfessor() {
-  router.push("/adicionarProfessor");
+function adicionarAluno() {
+  router.push("/adicionarAluno");
 }
 
-async function deletarProfessor(professoresId) {
+async function deletarAluno(alunoId) {
   try {
-    await store.deleteProfessor(professoresId);
-    await store.fetchProfessoresData();
+    await store.deleteAluno(alunoId);
+    await store.fetchAlunosData();
   } catch (err) {
-    console.error("Erro ao deletar professores:", err);
+    console.error("Erro ao deletar aluno:", err);
   }
 }
 </script>

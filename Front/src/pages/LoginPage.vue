@@ -1,12 +1,12 @@
 <template>
-  <q-page class="q-pa-md flex flex-center" style="background-color: #5c5c5c">
+  <q-page class="q-pa-md flex flex-center" >
     <q-card class="q-pa-lg" style="width: 800px">
       <q-card-section>
         <div class="text-h4 text-center">Login</div>
       </q-card-section>
 
       <q-card-section>
-        <q-form @submit="handleLogin">
+        <q-form @submit="login()">
           <q-input
             v-model="email"
             style="border: 1px solid #0894a4"
@@ -17,7 +17,7 @@
           />
 
           <q-input
-            v-model="password"
+            v-model="senha"
             type="password"
             style="border: 1px solid #0894a4"
             filled
@@ -26,12 +26,13 @@
             class="q-mb-md"
           />
 
+          <p id="erroLogin" style="text-align: center; color: red;" hidden>E-mail ou senha inválido. Tente novamente!</p>
+
           <q-btn
             label="Entrar"
             type="submit"
             color="primary"
             class="full-width q-mb-sm"
-            @click="goToAluno"
           />
         </q-form>
       </q-card-section>
@@ -42,25 +43,28 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAlunosStore } from "src/stores/alunosStore";
 
-const username = ref("");
-const password = ref("");
+const email = ref("");
+const senha = ref("");
 const router = useRouter();
+const alunosStore = useAlunosStore();
 
-const handleLogin = () => {
-  if (!username.value || !password.value) {
-    return;
+async function login() {
+  try {
+    if (await alunosStore.getAlunoLogin(email.value, senha.value))
+      router.push("/dashboard");
+    else
+      document.getElementById("erroLogin").removeAttribute("hidden");
+  } catch (error) {
+    console.error("Erro ao realizar o login:", error);
   }
-};
-
-const goToAluno = () => {
-  router.push("/alunos");
 };
 </script>
 
 <style scoped>
 .q-pa-md {
-  background-color: #f5f5f5;
+  background-color: #d2d2d2;
 }
 
 .full-width {

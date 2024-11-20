@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form @submit="handleSave">
+        <q-form @submit="salvar">
           <q-input
             v-model="nome"
             filled
@@ -21,15 +21,9 @@
             prepend-icon="person_outline"
             class="q-mb-md"
           />
-          <q-input
-            v-model="telefone"
-            filled
-            label="Telefone"
-            prepend-icon="lock"
-            class="q-mb-md"
-          />
-          <q-input
+          <q-select
             v-model="sexo"
+            :options="sexoOptions"
             filled
             label="Sexo"
             prepend-icon="lock"
@@ -39,6 +33,13 @@
             v-model="nascimento"
             filled
             label="Nascimento"
+            prepend-icon="lock"
+            class="q-mb-md"
+          />
+          <q-input
+            v-model="telefone"
+            filled
+            label="Telefone"
             prepend-icon="lock"
             class="q-mb-md"
           />
@@ -55,7 +56,7 @@
             type="button"
             color="primary"
             class="full-width q-mb-sm"
-            @click="handleSave"
+            @click="salvar"
           />
         </q-form>
       </q-card-section>
@@ -74,10 +75,16 @@ const store = useProfessoresStore();
 
 const nome = ref("");
 const cpf = ref("");
-const telefone = ref("");
 const sexo = ref("");
 const nascimento = ref("");
+const telefone = ref("");
 const cref = ref("");
+
+const sexoOptions = [
+  { label: "Masculino", value: "Masculino" },
+  { label: "Feminino", value: "Feminino" },
+  { label: "Outro", value: "Outro" },
+];
 
 const professorId = ref(route.params.id);
 
@@ -87,9 +94,9 @@ async function carregarDadosProfessor() {
   if (professor) {
     nome.value = professor.nome;
     cpf.value = professor.cpf;
-    telefone.value = professor.telefone;
     sexo.value = professor.sexo;
     nascimento.value = professor.nascimento;
+    telefone.value = professor.telefone;
     cref.value = professor.cref;
   }
 }
@@ -104,24 +111,24 @@ watch(
   }
 );
 
-async function handleSave() {
+async function salvar() {
   try {
     if (professorId.value != null) {
       await store.updateProfessor(professorId.value, {
         nome: nome.value,
         cpf: cpf.value,
-        telefone: telefone.value,
-        sexo: sexo.value,
+        sexo: sexo.value.value,
         nascimento: nascimento.value,
+        telefone: telefone.value,
         cref: cref.value,
       });
     } else {
       await store.addProfessor({
         nome: nome.value,
         cpf: cpf.value,
-        telefone: telefone.value,
-        sexo: sexo.value,
+        sexo: sexo.value.value,
         nascimento: nascimento.value,
+        telefone: telefone.value,
         cref: cref.value,
       });
     }

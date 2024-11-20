@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-form @submit="handleSave">
+        <q-form @submit="salvar">
           <q-input
             v-model="nome"
             filled
@@ -58,7 +58,7 @@
             type="button"
             color="primary"
             class="full-width q-mb-sm"
-            @click="handleSave"
+            @click="salvar"
           />
         </q-form>
       </q-card-section>
@@ -107,7 +107,7 @@ watch(
   }
 );
 
-async function handleSave() {
+async function salvar() {
   try {
     if (modalidadeId.value != null) {
       await store.updateModalidade(modalidadeId.value, {

@@ -3,9 +3,7 @@ import { api } from "../boot/axios";
 export default {
   async getModalidadesData() {
     try {
-      const [modalidadesResponse] = await Promise.all([
-        api.get("/modalidades"),
-      ]);
+      const [modalidadesResponse] = await Promise.all([api.get("/modalidades")]);
 
       return {
         modalidades: modalidadesResponse.data,
@@ -14,11 +12,6 @@ export default {
       console.error("Erro ao carregar dados dos modalidades:", error);
       throw error;
     }
-  },
-
-  async getModalidadeById(id) {
-    const response = await api.get("/modalidades");
-    return response.data;
   },
 
   async addModalidade(data) {

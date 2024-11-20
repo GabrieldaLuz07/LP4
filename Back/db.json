@@ -1,124 +1,162 @@
 {
   "alunos": [
     {
-      "id": "360f",
-      "nome": "Gabriel",
+      "nome": "Gabriela",
       "cpf": "10545059933",
-      "senha": "teste",
-      "nascimento": "",
-      "sexo": "M",
-      "endereco": "e",
+      "sexo": "Masculino",
+      "nascimento": "2024-11-18",
       "telefone": "4",
-      "id_plano": "1",
-      "id_status": "2"
+      "email": "b",
+      "senha": "1",
+      "plano": "Musculação - Mensal",
+      "id": "360f"
+    },
+    {
+      "nome": "Arthut ",
+      "cpf": "105.540.034-11",
+      "sexo": "Masculino",
+      "nascimento": "2024-11-04",
+      "telefone": "49988275932",
+      "email": "dasd@dasd",
+      "senha": "123",
+      "plano": "Musculação - Mensal",
+      "id": "3ae1"
+    },
+    {
+      "nome": "Mario",
+      "cpf": "104.123.322-23",
+      "sexo": "Masculino",
+      "nascimento": "1998-12-12",
+      "telefone": "486536663",
+      "email": "m@g",
+      "senha": "123",
+      "plano": "Yoga - Anual",
+      "id": "fff9"
+    },
+    {
+      "id": "c9cf",
+      "nome": "ads",
+      "cpf": "123123123",
+      "sexo": "Masculino",
+      "nascimento": "2024-11-13",
+      "telefone": "123123123",
+      "email": "asd",
+      "senha": "123",
+      "plano": "Spinning - Trimestral"
     }
   ],
   "professores": [
     {
       "nome": "Gabriel",
       "cpf": "234.567.890-12",
-      "telefone": "499882-6767",
-      "sexo": "F",
+      "sexo": "Masculino",
       "nascimento": "1985-02-02",
+      "telefone": "499882-6767",
       "cref": "234567",
       "id": "1"
     },
     {
-      "id": "2",
       "nome": "Ana Costa",
       "cpf": "234.567.890-12",
-      "telefone": "9999-9998",
-      "sexo": "F",
+      "sexo": "Feminino",
       "nascimento": "1985-02-02",
-      "cref": "234567"
+      "telefone": "9999-9998",
+      "cref": "234567",
+      "id": "2"
     },
     {
       "nome": "asd Costad",
       "cpf": "234.567.890-12",
-      "telefone": "9999-9998",
-      "sexo": "F",
+      "sexo": "Feminino",
       "nascimento": "1985-02-02",
+      "telefone": "9999-9998",
       "cref": "234567",
       "id": "3"
     },
     {
-      "id": "4",
       "nome": "Beatriz Oliveira",
       "cpf": "456.789.012-34",
-      "telefone": "9999-9996",
-      "sexo": "F",
+      "sexo": "Feminino",
       "nascimento": "1995-04-04",
-      "cref": "456789"
-    },
-    {
-      "id": "7",
-      "nome": "João Silva",
-      "cpf": "123.456.789-01",
-      "telefone": "9999-9999",
-      "sexo": "M",
-      "nascimento": "1990-01-01",
-      "cref": "1234567"
-    },
-    {
-      "nome": "teateter",
-      "cpf": "GABRIEL",
-      "telefone": "123",
-      "sexo": "a",
-      "nascimento": "123",
-      "cref": "113",
-      "id": "8"
+      "telefone": "9999-9996",
+      "cref": "456789",
+      "id": "4"
     }
   ],
   "modalidades": [
     {
-      "id": "1",
+      "id": "c1a5",
       "nome": "Musculação",
       "descricao": "Treinamento com pesos livres e máquinas",
       "hora_inicio": "08:00",
       "hora_fim": "22:00",
       "capacidademaxima": "50",
-      "diassemana": "Segunda a Sábado",
-      "id": "c1a5"
+      "diassemana": "Segunda a Sábado"
     },
     {
-      "id": "2",
+      "id": "4dd0",
       "nome": "Yoga",
       "descricao": "Aulas de Yoga",
       "hora_inicio": "06:00",
       "hora_fim": "20:00",
       "capacidademaxima": "30",
-      "diassemana": "Segunda a Sexta",
-      "id": "4dd0"
+      "diassemana": "Segunda a Sexta"
     },
     {
-      "id": "3",
+      "id": "68b2",
       "nome": "Pilates",
       "descricao": "Aulas de Pilates",
       "hora_inicio": "07:00",
       "hora_fim": "21:00",
       "capacidademaxima": "25",
-      "diassemana": "Segunda a Sábado",
-      "id": "68b2"
+      "diassemana": "Segunda a Sábado"
     },
     {
-      "id": "4",
+      "id": "65a4",
       "nome": "Spinning",
       "descricao": "Aulas de Spinning",
       "hora_inicio": "08:00",
       "hora_fim": "22:00",
       "capacidademaxima": "20",
-      "diassemana": "Terça e Quinta",
-      "id": "65a4"
+      "diassemana": "Terça e Quinta"
     },
     {
-      "id": "5",
+      "id": "dc1a",
       "nome": "Crossfit",
       "descricao": "Treinamento Crossfit",
       "hora_inicio": "06:00",
       "hora_fim": "22:00",
       "capacidademaxima": "15",
-      "diassemana": "Segunda a Domingo",
-      "id": "dc1a"
+      "diassemana": "Segunda a Domingo"
+    },
+    {
+      "id": "c450",
+      "nome": "Ginástica",
+      "descricao": "",
+      "hora_inicio": "18:09",
+      "hora_fim": "19:09",
+      "capacidademaxima": "10",
+      "diassemana": "Terça a Domingo"
+    }
+  ],
+  "planos": [
+    {
+      "periodo": "Mensal",
+      "modalidade": "Musculação",
+      "valor": "144",
+      "id": "1"
+    },
+    {
+      "id": "4b07",
+      "periodo": "Anual",
+      "modalidade": "Yoga",
+      "valor": "100"
+    },
+    {
+      "id": "28af",
+      "periodo": "Trimestral",
+      "modalidade": "Spinning",
+      "valor": "11"
     }
   ]
 }

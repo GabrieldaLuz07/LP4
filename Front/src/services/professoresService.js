@@ -3,9 +3,7 @@ import { api } from "../boot/axios";
 export default {
   async getProfessoresData() {
     try {
-      const [professoresResponse] = await Promise.all([
-        api.get("/professores"),
-      ]);
+      const [professoresResponse] = await Promise.all([api.get("/professores")]);
 
       return {
         professores: professoresResponse.data,
@@ -14,11 +12,6 @@ export default {
       console.error("Erro ao carregar dados dos professores:", error);
       throw error;
     }
-  },
-
-  async getProfessorById(id) {
-    const response = await api.get("/professores");
-    return response.data;
   },
 
   async addProfessor(data) {

@@ -16,37 +16,22 @@
               width: 100%;
             "
           >
-            <label style="color: black; font-size: 18px">Nome</label>
-            <q-input
-              v-model="search"
-              debounce="300"
-              class="custom-input"
-              style="
-                width: 480px;
-                border: 2px solid var(--q-primary);
-                border-radius: 10px;
-                background-color: white;
-                margin-left: 5px;
-              "
-            />
 
             <q-btn
               class="custom-button"
               color="primary"
               icon="add"
-              @click="adicionarAluno"
+              @click="adicionarPlano"
               style="position: absolute; right: 0; width: 35px"
             />
           </div>
 
           <q-table
             v-if="
-              alunosFiltrados &&
-              alunosFiltrados.length > 0 &&
               !loading &&
               !error
             "
-            :rows="alunosFiltrados"
+            :rows="planos"
             :columns="columns"
             row-key="id"
             :rows-per-page-options="[5, 10, 20]"
@@ -74,12 +59,12 @@
                   <q-icon
                     name="edit"
                     class="q-mr-sm action-icon"
-                    @click="editarAluno(props.row)"
+                    @click="editarPlano(props.row)"
                   />
                   <q-icon
                     name="delete"
                     class="q-mr-sm action-icon"
-                    @click="deletarAluno(props.row.id)"
+                    @click="deletarPlano(props.row.id)"
                   />
                 </q-td>
 
@@ -88,36 +73,20 @@
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.nome }}</span>
-                </q-td>
-
-                <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.cpf }}</span>
-                </q-td>
-
-                <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.telefone }}</span>
-                </q-td>
-
-                <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.sexo }}</span>
-                </q-td>
-
-                <q-td class="vertical-line body-cell">
-                  <span>{{ props.row.nascimento }}</span>
+                  <span>{{ props.row.periodo }}</span>
                 </q-td>
 
                 <q-td class="vertical-line body-cell">
                   <span>{{ props.row.modalidade }}</span>
                 </q-td>
 
+                <q-td class="vertical-line body-cell">
+                  <span>R$ {{ props.row.valor }}</span>
+                </q-td>
               </q-tr>
             </template>
           </q-table>
 
-          <div v-else-if="alunosFiltrados && alunosFiltrados.length === 0">
-            Nenhum aluno disponível.
-          </div>
         </q-page>
       </q-page-container>
     </q-layout>
@@ -127,57 +96,45 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
-import { useAlunoStore } from "src/stores/alunosStore";
+import { usePlanosStore } from "src/stores/planosStore";
 
 const router = useRouter();
-const store = useAlunoStore();
+const store = usePlanosStore();
 const search = ref("");
 
 onMounted(() => {
-  store.fetchAlunosData();
+  store.fetchPlanosData();
 });
 
 const columns = [
   { name: "btns" },
-  { name: "id", label: "ID Aluno", align: "left", field: "id" },
-  { name: "nome", label: "Nome", align: "left", field: "nome" },
-  { name: "cpf", label: "CPF", align: "left", field: "cpf" },
-  { name: "sexo", label: "Sexo", align: "left", field: "sexo" },
-  { name: "nascimento", label: "Nascimento", align: "left", field: "nascimento" },
-  { name: "email", label: "E-mail", align: "left", field: "email" },
-  { name: "telefone", label: "Telefone", align: "left", field: "telefone" },
-  { name: "modalidade", label: "Modalidade", align: "left", field: "modalidade" }
+  { name: "id", label: "ID Plano", align: "left", field: "id" },
+  { name: "periodo", label: "Período", align: "left", field: "periodo" },
+  { name: "modalidade", label: "Modalidade", align: "left", field: "modalidade" },
+  { name: "valor", label: "Valor", align: "left", field: "valor" },
 ];
 
 const loading = computed(() => store.loading);
 const error = computed(() => store.error);
-const alunos = computed(() => store.alunos);
+const planos = computed(() => store.planos);
 
-const alunosFiltrados = computed(() =>
-  alunos.value
-    ? alunos.value.filter((alunos) =>
-        alunos.nome.toLowerCase().includes(search.value.toLowerCase())
-      )
-    : []
-);
-
-function editarAluno(aluno) {
+function editarPlano(plano) {
   router.push({
-    name: "registerAluno",
-    params: { id: aluno.id },
+    name: "registerPlano",
+    params: { id: plano.id },
   });
 }
 
-function adicionarAluno() {
-  router.push("/adicionarAluno");
+function adicionarPlano() {
+  router.push("/adicionarPlano");
 }
 
-async function deletarAluno(alunosId) {
+async function deletarPlano(planoId) {
   try {
-    await store.deletarAluno(alunosId);
-    await store.fetchAlunosData();
+    await store.deletePlano(planoId);
+    await store.fetchPlanosData();
   } catch (err) {
-    console.error("Erro ao deletar aluno:", err);
+    console.error("Erro ao deletar plano:", err);
   }
 }
 </script>

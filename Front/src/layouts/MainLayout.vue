@@ -22,7 +22,6 @@
           @click="leave()"
           style="cursor: pointer"
         />
-        <!-- <q-btn flat dense round @click="goTo('login')" /> -->
       </q-toolbar>
     </q-header>
 
@@ -62,17 +61,22 @@
             <q-item-section class="itemMenu">Dashboard</q-item-section>
           </q-item>
 
-          <q-item class="menu" clickable v-ripple @click="goTo('modalidades')">
-            <q-item-section class="itemMenu">Modalidades</q-item-section>
-          </q-item>
-
-          <q-item class="menu" clickable v-ripple @click="goTo('aluno')">
+          <q-item class="menu" clickable v-ripple @click="goTo('alunos')">
             <q-item-section class="itemMenu">Alunos</q-item-section>
           </q-item>
 
           <q-item class="menu" clickable v-ripple @click="goTo('professores')">
             <q-item-section class="itemMenu">Professores</q-item-section>
           </q-item>
+
+          <q-item class="menu" clickable v-ripple @click="goTo('modalidades')">
+            <q-item-section class="itemMenu">Modalidades</q-item-section>
+          </q-item>
+
+          <q-item class="menu" clickable v-ripple @click="goTo('planos')">
+            <q-item-section class="itemMenu">Planos</q-item-section>
+          </q-item>
+
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -110,7 +114,7 @@ function toggleLeftDrawer() {
 }
 
 const leave = () => {
-  router.push("/login");
+  router.push("/");
 };
 
 function goTo(routeName) {
